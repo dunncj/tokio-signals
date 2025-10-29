@@ -10,7 +10,7 @@ impl<T> Signal<T>
 where
     T: Clone + Send + Sync + 'static,
 {
-    //Create a new Signal with an initial value
+    /// Create a new Signal with an initial value
     pub fn new(value: T) -> Self {
         let (tx, rx) = watch::channel(value);
         Self { tx, rx }
