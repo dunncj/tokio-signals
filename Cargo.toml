@@ -1,7 +1,12 @@
 [package]
 name = "tokio-signals"
 version = "0.1.0"
-edition = "2024"
+edition = "2025"
+authors = ["Cameron Dunn camerondunn.net"]
+description = "Implements pub/sub Signals in Rust"
+license = "MIT"
+repository = "https://github.com/tokio-signals"
+keywords = ["tokio", "signals", "async"]
 
 [dependencies]
 serde = "1.0.228"
