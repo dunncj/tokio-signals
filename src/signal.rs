@@ -1,6 +1,8 @@
+use serde::{Serialize, Serializer};
 use tokio::sync::watch;
 
 // Simple implementation of a Signal using Tokio's watch channel
+#[derive(Clone)]
 pub struct Signal<T: Clone + Send + Sync + 'static> {
     tx: watch::Sender<T>,
     rx: watch::Receiver<T>,
@@ -37,5 +39,19 @@ where
                 f(rx.borrow().clone());
             }
         });
+    }
+}
+
+impl<T> Serialize for Signal<T>
+where
+    T: Clone + Serialize + Send + Sync + 'static,
+{
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: Serializer,
+    {
+        // Just serialize the current value
+        let value = self.get();
+        value.serialize(serializer)
     }
 }
